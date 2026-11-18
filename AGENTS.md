@@ -70,6 +70,12 @@ Use the lightest reliable tool.
 - Codex: use native `web_search` for web research/search; Codex has no tool named `WebFetch`.
 - Cross-platform: use `agent-browser` for dynamic or client-rendered sites, interaction, authentication, stateful navigation, browser workflows, or when native fetch/search is insufficient.
 
+## Cloudflare CLI
+
+When interacting with Cloudflare, use the `cf` CLI unless the project has a Wrangler configuration file.
+
+While an app has a `wrangler.jsonc`, `wrangler.json`, or `wrangler.toml` and no `cloudflare.config.ts`, keep Wrangler for its `dev`, `build`, `types`, and `deploy` commands. Never run `cf dev`, `cf build`, or `cf deploy` there: in an unmigrated project they rewrite `package.json` and configuration files, without confirmation in CI. `cf` resource and account commands (DNS, zones, D1, KV, R2, observability) are fine alongside Wrangler. Run `cf migrate` only when explicitly requested.
+
 ## Documents and PDFs
 
 Use the `convert-documents-to-markdown` skill for ordinary text extraction from supported documents (Word, PowerPoint, Excel, OpenDocument, RTF, EPUB, CSV), including text-readable PDFs. For large documents, write Markdown to disk and read only the relevant sections.
